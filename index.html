@@ -19,8 +19,9 @@
             --sem1-bg: #F5F3FF;
             --sem2-color: #F59E0B; /* Amarelo/Laranja */
             --sem2-bg: #FFFBEB;
-            --sem3-color: #10B981; /* Verde */
-            --sem3-bg: #ECFDF5;
+            /* COR CORRIGIDA: Mudado de Emerald para Blue */
+            --sem3-color: #3B82F6; /* Azul Claro/Médio */
+            --sem3-bg: #EFF6FF;
             --sem4-color: #EF4444; /* Vermelho */
             --sem4-bg: #FEF2F2;
             
@@ -116,13 +117,13 @@
         /* Cores Específicas dos Nodes */
         .node-purple { border-left: 4px solid var(--sem1-color); background: var(--sem1-bg); }
         .node-yellow { border-left: 4px solid var(--sem2-color); background: var(--sem2-bg); }
-        .node-green { border-left: 4px solid var(--sem3-color); background: var(--sem3-bg); }
+        .node-blue { border-left: 4px solid var(--sem3-color); background: var(--sem3-bg); }
         .node-red { border-left: 4px solid var(--sem4-color); background: var(--sem4-bg); }
 
         /* Elemento Concluído */
-        .node-completed { border: 2px solid var(--sem3-color); background: #F0FDF4; border-left: 6px solid var(--sem3-color); }
+        .node-completed { border: 2px solid #10B981; background: #F0FDF4; border-left: 6px solid #10B981; }
         .badge-done {
-            background-color: var(--sem3-color); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+            background-color: #10B981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
             display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.2);
         }
 
@@ -145,7 +146,103 @@
         .feature-list { list-style: none; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
         .feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--blue-secondary); }
         .feature-list li i { color: var(--blue-primary); margin-top: 3px; }
-        .feature-list li.done i { color: var(--sem3-color); }
+        .feature-list li.done i { color: #10B981; }
+
+        /* NOVOS ESTILOS PARA DETALHES MELHORADOS */
+        /* Estilos base para os cards de detalhe atualizados */
+        .detail-card-updated {
+            padding: 50px; /* Mais preenchimento */
+            gap: 30px; /* Mais espaço entre elementos */
+        }
+        .detail-card-updated h3 {
+            font-size: 36px; /* Fonte maior para título */
+            letter-spacing: -1px;
+        }
+        .detail-card-updated p {
+            font-size: 20px; /* Fonte maior para parágrafo */
+            line-height: 1.7;
+            color: var(--blue-secondary);
+        }
+        
+        /* Transformando a lista em cartões modernos */
+        .feature-cards-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .feature-cards-list li {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .feature-cards-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        /* Estilos dos ícones dentro dos cartões de feature */
+        .feature-icon-wrapper {
+            font-size: 28px; /* Ícones maiores */
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: var(--bg-page);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-primary);
+        }
+        .feature-cards-list li.done .feature-icon-wrapper {
+            color: #10B981;
+            background: #F0FDF4;
+        }
+        
+        /* Texto dentro dos cartões de feature */
+        .feature-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .feature-cards-list li strong {
+            font-size: 19px; /* Título da feature maior */
+            color: var(--blue-secondary);
+            font-weight: 700;
+        }
+        .feature-cards-list li span {
+            font-size: 16px; /* Descrição da feature maior */
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        /* Coluna da Direita (Ícone Visual) */
+        .detail-visual-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 20px;
+            border: 1px dashed var(--card-border);
+            flex-direction: column;
+            padding: 40px;
+        }
+        .detail-visual-col i {
+            font-size: 140px; /* Ícone central muito maior */
+            margin-bottom: 30px;
+        }
+        .detail-visual-col h3 {
+            font-size: 32px; /* Legenda do ícone maior */
+            font-weight: 800;
+            color: var(--blue-secondary);
+            text-align: center;
+        }
 
         /* Controles Inferiores */
         .controls { position: absolute; bottom: 30px; right: 60px; display: flex; gap: 15px; z-index: 100; }
@@ -211,19 +308,19 @@
                     
                     <div style="flex:1"></div> 
                     
-                    <div class="node node-green">⚙️ Planejamento</div>
+                    <div class="node node-blue">⚙️ Planejamento</div>
                     <div class="flex-row" style="align-items: center; justify-content: center;">
                         <div class="arrow-down" style="transform: rotate(45deg);"><i class="fa-solid fa-arrow-down"></i></div>
                         <div class="arrow-down" style="transform: rotate(-45deg);"><i class="fa-solid fa-arrow-down"></i></div>
                     </div>
                     
                     <div class="flex-row">
-                        <div class="node node-green node-sm" style="flex: 1;">
+                        <div class="node node-blue node-sm" style="flex: 1;">
                             💵 Reembolso
                             <div class="arrow-down" style="margin-top: 5px;"><i class="fa-solid fa-arrow-down"></i></div>
                             <span style="font-weight: 400; font-size: 11px; margin-top:5px; display:block;">🗺️ Mapa</span>
                         </div>
-                        <div class="node node-green node-sm" style="flex: 1; height: fit-content;">📊 Dashboards</div>
+                        <div class="node node-blue node-sm" style="flex: 1; height: fit-content;">📊 Dashboards</div>
                     </div>
                 </div>
 
@@ -246,21 +343,51 @@
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
             <h2>📱 1º Semestre - 2026 (Entregue)</h2>
             <div class="detail-grid">
-                <div class="detail-card" style="border-left: 6px solid var(--sem3-color); background: #F8FAFC;">
-                    <h3 style="color: var(--sem3-color);">Aplicativos Teams <span class="badge-done" style="font-size: 14px;">✅ 26/03</span></h3>
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid #10B981; background: #F8FAFC;">
+                    <h3 style="color: #10B981;">Aplicativos Teams <span class="badge-done" style="font-size: 14px;">✅ 26/03</span></h3>
                     <p>A primeira grande etapa do nosso ano focou na reestruturação e entrega completa da experiência mobile, tanto para quem gere, quanto para quem executa na rua.</p>
-                    <ul class="feature-list">
-                        <li class="done"><i class="fa-solid fa-circle-check"></i> <strong>Versão Gestor (App Completo):</strong> Todo o poder da plataforma Web, agora otimizado na palma da mão do gestor em campo.</li>
-                        <li class="done"><i class="fa-solid fa-circle-check"></i> <strong>Versão Usuário:</strong> Nova interface desenhada para produtividade diária sem travamentos.</li>
-                        <li class="done"><i class="fa-solid fa-circle-check"></i> <strong>Dashboard de Usuário:</strong> Métricas pessoais em tempo real para o colaborador.</li>
-                        <li class="done"><i class="fa-solid fa-circle-check"></i> <strong>Mapa do Usuário:</strong> Navegação e roteirização fluida integrada nativamente.</li>
+                    <ul class="feature-cards-list">
+                        <li class="done">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Versão Gestor (App Completo)</strong>
+                                <span>Todo o poder da plataforma Web, agora otimizado na palma da mão do gestor em campo.</span>
+                            </div>
+                        </li>
+                        <li class="done">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Versão Usuário</strong>
+                                <span>Nova interface desenhada para produtividade diária sem travamentos.</span>
+                            </div>
+                        </li>
+                        <li class="done">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Dashboard de Usuário</strong>
+                                <span>Métricas pessoais em tempo real para o colaborador.</span>
+                            </div>
+                        </li>
+                        <li class="done">
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Mapa do Usuário</strong>
+                                <span>Navegação e roteirização fluida integrada nativamente.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; background: white; border-radius: 20px; border: 1px dashed var(--card-border);">
-                    <div style="text-align: center; color: var(--text-gray);">
-                        <i class="fa-solid fa-mobile-screen-button" style="font-size: 80px; color: var(--sem1-color); margin-bottom: 20px; opacity: 0.8;"></i>
-                        <h3 style="color: var(--blue-secondary);">Fundação Mobile Estabelecida</h3>
-                    </div>
+                <div class="detail-visual-col">
+                    <i class="fa-solid fa-mobile-screen-button" style="color: var(--sem1-color);"></i>
+                    <h3>Fundação Mobile Estabelecida</h3>
                 </div>
             </div>
         </div>
@@ -269,20 +396,42 @@
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
             <h2>💻 2º Semestre - 2026</h2>
             <div class="detail-grid">
-                <div class="detail-card" style="border-left: 6px solid var(--sem2-color);">
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem2-color);">
                     <h3 style="color: var(--sem2-color);">Nova Versão Web</h3>
                     <p>Após a revolução no mobile, a missão agora é reconstruir o coração da plataforma no Desktop, entregando velocidade, UX moderna e mais poder de gestão.</p>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-building"></i> <strong>Módulo de Locais:</strong> Refatoração da base de clientes e locais físicos com novos filtros dinâmicos.</li>
-                        <li><i class="fa-solid fa-users"></i> <strong>Gestão de Usuários:</strong> Controle de permissões granular e interface de cadastro otimizada.</li>
-                        <li><i class="fa-regular fa-calendar-check"></i> <strong>Visitas e Agenda:</strong> Novo calendário, arrastar-e-soltar e visualização em linha do tempo para otimização de equipes em massa.</li>
+                    <ul class="feature-cards-list">
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Módulo de Locais</strong>
+                                <span>Refatoração da base de clientes físicos com novos filtros dinâmicos.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Gestão de Usuários</strong>
+                                <span>Controle de permissões granular e interface de cadastro otimizada.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-regular fa-calendar-check"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Visitas e Agenda</strong>
+                                <span>Novo calendário e visualização em linha do tempo para otimização de equipes.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; background: white; border-radius: 20px; border: 1px dashed var(--card-border);">
-                    <div style="text-align: center; color: var(--text-gray);">
-                        <i class="fa-solid fa-laptop-code" style="font-size: 80px; color: var(--sem2-color); margin-bottom: 20px; opacity: 0.8;"></i>
-                        <h3 style="color: var(--blue-secondary);">O Renascimento do Desktop</h3>
-                    </div>
+                <div class="detail-visual-col">
+                    <i class="fa-solid fa-laptop-code" style="color: var(--sem2-color);"></i>
+                    <h3>O Renascimento do Desktop</h3>
                 </div>
             </div>
         </div>
@@ -291,21 +440,51 @@
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
             <h2>⚙️ 1º Semestre - 2027</h2>
             <div class="detail-grid">
-                <div class="detail-card" style="border-left: 6px solid var(--sem3-color);">
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem3-color);">
                     <h3 style="color: var(--sem3-color);">Planejamento e Inteligência</h3>
                     <p>Com a nova casa arrumada (Web/App), o ano de 2027 inicia focado em Inteligência de Dados e Prestação de Contas avançada.</p>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-route"></i> <strong>Planejamento:</strong> Ferramentas preditivas para otimização de rotas e carga horária antes da execução.</li>
-                        <li><i class="fa-solid fa-chart-pie"></i> <strong>Dashboards:</strong> Painéis analíticos customizáveis para medir performance cruzada de equipes.</li>
-                        <li><i class="fa-solid fa-receipt"></i> <strong>Reembolso:</strong> Novo fluxo de aprovação financeira atrelado nativamente ao Mapa e Check-ins.</li>
-                        <li><i class="fa-solid fa-map-location-dot"></i> <strong>Mapa:</strong> Visão tática atualizada com clusters e dados financeiros sobrepostos.</li>
+                    <ul class="feature-cards-list">
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-route"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Planejamento</strong>
+                                <span>Ferramentas preditivas para otimização de rotas e carga horária.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Dashboards Analíticos</strong>
+                                <span>Painéis customizáveis para medir performance cruzada de equipes.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-receipt"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Módulo de Reembolso</strong>
+                                <span>Fluxo de aprovação atrelado nativamente ao Mapa e Check-ins.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Visão Tática no Mapa</strong>
+                                <span>Novos clusters e dados financeiros sobrepostos.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; background: white; border-radius: 20px; border: 1px dashed var(--card-border);">
-                    <div style="text-align: center; color: var(--text-gray);">
-                        <i class="fa-solid fa-magnifying-glass-chart" style="font-size: 80px; color: var(--sem3-color); margin-bottom: 20px; opacity: 0.8;"></i>
-                        <h3 style="color: var(--blue-secondary);">Inteligência Operacional</h3>
-                    </div>
+                <div class="detail-visual-col">
+                    <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--sem3-color);"></i>
+                    <h3>Inteligência Operacional</h3>
                 </div>
             </div>
         </div>
@@ -314,19 +493,33 @@
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
             <h2>📦 2º Semestre - 2027</h2>
             <div class="detail-grid">
-                <div class="detail-card" style="border-left: 6px solid var(--sem4-color);">
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem4-color);">
                     <h3 style="color: var(--sem4-color);">Produtos e Atendimento (Desk)</h3>
                     <p>O fechamento de 2027 visa fechar a cadeia de valor da prestação de serviços, englobando controle de insumos e comunicação direta com o cliente final.</p>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-boxes-stacked"></i> <strong>Módulo de Produtos:</strong> Gestão de estoque móvel (porta-malas), catálogo de peças para aplicação em campo e orçamentos via app.</li>
-                        <li><i class="fa-solid fa-headset"></i> <strong>Desk (Service Desk):</strong> Portal de chamados integrado. O cliente final abre o ticket que vai direto para a agenda do técnico no Teams.</li>
+                    <ul class="feature-cards-list">
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Módulo de Produtos</strong>
+                                <span>Gestão de estoque móvel (porta-malas) e orçamentos via app.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div class="feature-text-wrapper">
+                                <strong>Desk (Service Desk)</strong>
+                                <span>Portal de chamados integrado. Cliente abre ticket que vai para o técnico.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; background: white; border-radius: 20px; border: 1px dashed var(--card-border);">
-                    <div style="text-align: center; color: var(--text-gray);">
-                        <i class="fa-solid fa-truck-fast" style="font-size: 80px; color: var(--sem4-color); margin-bottom: 20px; opacity: 0.8;"></i>
-                        <h3 style="color: var(--blue-secondary);">Cadeia de Valor Completa</h3>
-                    </div>
+                <div class="detail-visual-col">
+                    <i class="fa-solid fa-truck-fast" style="color: var(--sem4-color);"></i>
+                    <h3>Cadeia de Valor Completa</h3>
                 </div>
             </div>
         </div>
@@ -347,7 +540,7 @@
             <div class="index-group">Linha do Tempo</div>
             <li class="index-item sub-item" onclick="goToSlide(2)"><i class="fa-solid fa-check" style="color:#10B981"></i> 1º Sem 2026 (Apps)</li>
             <li class="index-item sub-item" onclick="goToSlide(3)"><i class="fa-solid fa-laptop-code" style="color:#F59E0B"></i> 2º Sem 2026 (Web)</li>
-            <li class="index-item sub-item" onclick="goToSlide(4)"><i class="fa-solid fa-chart-pie" style="color:#10B981"></i> 1º Sem 2027 (Plan.)</li>
+            <li class="index-item sub-item" onclick="goToSlide(4)"><i class="fa-solid fa-chart-pie" style="color:#3B82F6"></i> 1º Sem 2027 (Plan.)</li>
             <li class="index-item sub-item" onclick="goToSlide(5)"><i class="fa-solid fa-boxes-stacked" style="color:#EF4444"></i> 2º Sem 2027 (Prod.)</li>
         </ul>
     </div>
