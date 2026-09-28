@@ -8,28 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Paleta Moderna */
             --blue-primary: #2563EB;
             --blue-primary-hover: #1D4ED8;
-            --blue-secondary: #0F172A; /* Slate 900 */
+            --blue-secondary: #0F172A;
             --blue-light: #EFF6FF;
-            
-            /* Cores do Roadmap (Baseadas no Fluxograma) */
-            --sem1-color: #8B5CF6; /* Roxo */
-            --sem1-bg: #F5F3FF;
-            --sem2-color: #F59E0B; /* Amarelo/Laranja */
-            --sem2-bg: #FFFBEB;
-            /* COR CORRIGIDA: Mudado de Emerald para Blue */
-            --sem3-color: #3B82F6; /* Azul Claro/Médio */
-            --sem3-bg: #EFF6FF;
-            --sem4-color: #EF4444; /* Vermelho */
-            --sem4-bg: #FEF2F2;
-            
-            /* Badges */
-            --green-win-bg: #DCFCE7;
-            --green-win-text: #166534;
+
+            /* Entregues */
+            --done-color: #10B981;
+            --done-bg: #F0FDF4;
+            /* 4º Tri 2026 */
+            --q4-color: #F59E0B;
+            --q4-bg: #FFFBEB;
+            /* 1º Tri 2027 */
+            --q1-color: #3B82F6;
+            --q1-bg: #EFF6FF;
+            /* 2º Tri 2027 */
+            --q2-color: #EF4444;
+            --q2-bg: #FEF2F2;
+
             --neutral-bg: #F1F5F9;
-            
             --text-dark: #1E293B;
             --text-gray: #64748B;
             --bg-page: #F8FAFC;
@@ -49,7 +46,7 @@
             display: flex;
         }
 
-        /* Sidebar Moderna */
+        /* Sidebar */
         #sidebar {
             width: var(--sidebar-width); height: 100%;
             background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
@@ -69,7 +66,7 @@
         .index-item.active-nav { background-color: var(--blue-primary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); font-weight: 600; }
         .sub-item { padding-left: 30px; font-size: 12.5px; }
 
-        /* Área Principal de Slides */
+        /* Slides */
         #presentation-container { width: calc(100% - var(--sidebar-width)); height: 100%; position: relative; background-image: radial-gradient(#E2E8F0 1px, transparent 1px); background-size: 24px 24px; }
         .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -80,7 +77,6 @@
         }
         .slide.active { opacity: 1; visibility: visible; }
 
-        /* Tipografia e Logos */
         .logo-mini { position: absolute; top: 30px; right: 60px; width: 130px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
         h1 { color: var(--blue-secondary); font-size: 56px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
         h2 { color: var(--blue-secondary); font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
@@ -89,162 +85,94 @@
         .slide-cover h2::before { display: none; }
         .logo-cover { width: 380px; margin-bottom: 40px; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.1)); }
 
-        /* Roadmap Grid Visão Geral */
+        /* Visão Geral */
         .roadmap-container {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; flex: 1; margin-bottom: 60px; height: calc(100% - 130px);
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; flex: 1; margin-bottom: 60px; height: calc(100% - 130px);
         }
         .roadmap-col {
-            background: white; border-radius: 20px; padding: 20px; border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 12px; position: relative;
+            background: white; border-radius: 20px; padding: 18px; border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 10px; position: relative;
         }
+        .col-done { background: #FAFFFC; border-color: #BBF7D0; }
         .col-header {
-            text-align: center; font-size: 18px; font-weight: 800; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 2px dashed var(--card-border);
+            text-align: center; font-size: 17px; font-weight: 800; padding-bottom: 12px; margin-bottom: 8px; border-bottom: 2px dashed var(--card-border);
         }
-        .col-1 .col-header { color: var(--sem1-color); }
-        .col-2 .col-header { color: var(--sem2-color); }
-        .col-3 .col-header { color: var(--sem3-color); }
-        .col-4 .col-header { color: var(--sem4-color); }
+        .col-header small { display: block; font-size: 11px; font-weight: 700; margin-top: 4px; opacity: 0.8; letter-spacing: 0.5px; }
+        .col-done .col-header { color: var(--done-color); }
+        .col-q4 .col-header { color: var(--q4-color); }
+        .col-q1 .col-header { color: var(--q1-color); }
+        .col-q2 .col-header { color: var(--q2-color); }
 
-        /* Nodes (Caixas do Fluxograma) */
         .node {
-            background: var(--bg-page); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; text-align: center;
-            font-size: 14px; font-weight: 600; color: var(--blue-secondary); box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            background: var(--bg-page); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; text-align: center;
+            font-size: 13.5px; font-weight: 600; color: var(--blue-secondary); box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .node:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
         .node-sm { font-size: 12.5px; padding: 10px; }
-        
-        /* Cores Específicas dos Nodes */
-        .node-purple { border-left: 4px solid var(--sem1-color); background: var(--sem1-bg); }
-        .node-yellow { border-left: 4px solid var(--sem2-color); background: var(--sem2-bg); }
-        .node-blue { border-left: 4px solid var(--sem3-color); background: var(--sem3-bg); }
-        .node-red { border-left: 4px solid var(--sem4-color); background: var(--sem4-bg); }
 
-        /* Elemento Concluído */
-        .node-completed { border: 2px solid #10B981; background: #F0FDF4; border-left: 6px solid #10B981; }
+        .node-yellow { border-left: 4px solid var(--q4-color); background: var(--q4-bg); }
+        .node-blue { border-left: 4px solid var(--q1-color); background: var(--q1-bg); }
+        .node-red { border-left: 4px solid var(--q2-color); background: var(--q2-bg); }
+
+        .node-completed { border: 2px solid var(--done-color); background: var(--done-bg); border-left: 6px solid var(--done-color); }
         .badge-done {
-            background-color: #10B981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+            background-color: var(--done-color); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
             display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.2);
         }
+        .badge-date {
+            padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 8px; display: inline-flex; align-items: center; gap: 4px; background: white;
+        }
+        .node-yellow .badge-date { color: #B45309; border: 1px solid #FDE68A; }
+        .node-blue .badge-date { color: #1D4ED8; border: 1px solid #BFDBFE; }
+        .node-red .badge-date { color: #B91C1C; border: 1px solid #FECACA; }
+        .node-note { font-weight: 400; font-size: 11px; margin-top: 4px; color: var(--text-gray); }
 
-        /* Setas Visuais */
-        .arrow-down { color: #CBD5E1; font-size: 18px; text-align: center; margin: -4px 0; }
-        .flex-row { display: flex; gap: 10px; width: 100%; }
-        
-        /* Barra Inferior (Melhorias Contínuas) */
+        .arrow-down { color: #CBD5E1; font-size: 16px; text-align: center; margin: -4px 0; }
+        .flex-row { display: flex; gap: 8px; width: 100%; }
+
         .bottom-bar-roadmap {
             grid-column: 1 / -1; background: linear-gradient(90deg, #EEF2FF 0%, #E0E7FF 100%); padding: 16px; border-radius: 16px;
             text-align: center; font-weight: 800; color: var(--blue-primary-hover); border: 1px solid #C7D2FE; margin-top: auto;
             letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.05);
         }
 
-        /* Layout Detail (Para slides específicos) */
+        /* Slides de detalhe */
         .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex: 1; margin-bottom: 60px; height: calc(100% - 130px); }
-        .detail-card { background: white; border-radius: 20px; padding: 40px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 20px; }
+        .detail-card { background: white; border-radius: 20px; padding: 40px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
         .detail-card h3 { font-size: 24px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .detail-card p { font-size: 16px; color: var(--text-gray); line-height: 1.6; }
-        .feature-list { list-style: none; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--blue-secondary); }
-        .feature-list li i { color: var(--blue-primary); margin-top: 3px; }
-        .feature-list li.done i { color: #10B981; }
 
-        /* NOVOS ESTILOS PARA DETALHES MELHORADOS */
-        /* Estilos base para os cards de detalhe atualizados */
-        .detail-card-updated {
-            padding: 50px; /* Mais preenchimento */
-            gap: 30px; /* Mais espaço entre elementos */
-        }
-        .detail-card-updated h3 {
-            font-size: 36px; /* Fonte maior para título */
-            letter-spacing: -1px;
-        }
-        .detail-card-updated p {
-            font-size: 20px; /* Fonte maior para parágrafo */
-            line-height: 1.7;
-            color: var(--blue-secondary);
-        }
-        
-        /* Transformando a lista em cartões modernos */
-        .feature-cards-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 15px;
-        }
+        .detail-card-updated { padding: 44px; gap: 24px; }
+        .detail-card-updated h3 { font-size: 34px; letter-spacing: -1px; flex-wrap: wrap; }
+        .detail-card-updated p { font-size: 19px; line-height: 1.65; color: var(--blue-secondary); }
+
+        .feature-cards-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
         .feature-cards-list li {
-            background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            background: #ffffff; border: 1px solid var(--card-border); border-radius: 16px; padding: 20px;
+            display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .feature-cards-list li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-        
-        /* Estilos dos ícones dentro dos cartões de feature */
+        .feature-cards-list li:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .feature-icon-wrapper {
-            font-size: 28px; /* Ícones maiores */
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
-            background: var(--bg-page);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--blue-primary);
+            font-size: 26px; width: 56px; height: 56px; min-width: 56px; border-radius: 14px; background: var(--bg-page);
+            display: flex; align-items: center; justify-content: center; color: var(--blue-primary);
         }
-        .feature-cards-list li.done .feature-icon-wrapper {
-            color: #10B981;
-            background: #F0FDF4;
-        }
-        
-        /* Texto dentro dos cartões de feature */
-        .feature-text-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .feature-cards-list li strong {
-            font-size: 19px; /* Título da feature maior */
-            color: var(--blue-secondary);
-            font-weight: 700;
-        }
-        .feature-cards-list li span {
-            font-size: 16px; /* Descrição da feature maior */
-            color: var(--text-gray);
-            font-weight: 400;
-        }
+        .feature-cards-list li.done .feature-icon-wrapper { color: var(--done-color); background: var(--done-bg); }
+        .feature-text-wrapper { display: flex; flex-direction: column; gap: 6px; }
+        .feature-cards-list li strong { font-size: 18px; color: var(--blue-secondary); font-weight: 700; }
+        .feature-cards-list li span { font-size: 15.5px; color: var(--text-gray); font-weight: 400; }
+        .feature-date { font-size: 12px !important; font-weight: 700 !important; }
+        .done .feature-date { color: var(--done-color) !important; }
 
-        /* Coluna da Direita (Ícone Visual) */
         .detail-visual-col {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 20px;
-            border: 1px dashed var(--card-border);
-            flex-direction: column;
-            padding: 40px;
+            display: flex; align-items: center; justify-content: center; background: white; border-radius: 20px;
+            border: 1px dashed var(--card-border); flex-direction: column; padding: 40px;
         }
-        .detail-visual-col i {
-            font-size: 140px; /* Ícone central muito maior */
-            margin-bottom: 30px;
-        }
-        .detail-visual-col h3 {
-            font-size: 32px; /* Legenda do ícone maior */
-            font-weight: 800;
-            color: var(--blue-secondary);
-            text-align: center;
-        }
+        .detail-visual-col i { font-size: 140px; margin-bottom: 30px; }
+        .detail-visual-col h3 { font-size: 32px; font-weight: 800; color: var(--blue-secondary); text-align: center; }
 
-        /* Controles Inferiores */
+        /* Controles */
         .controls { position: absolute; bottom: 30px; right: 60px; display: flex; gap: 15px; z-index: 100; }
         .control-btn { background-color: white; color: var(--text-dark); border: 1px solid var(--card-border); padding: 12px 24px; border-radius: 50px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .control-btn:hover:not(:disabled) { background-color: var(--blue-primary); color: white; border-color: var(--blue-primary); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2); }
@@ -255,82 +183,130 @@
 
     <div id="presentation-container">
 
+        <!-- CAPA -->
         <div class="slide slide-cover active" id="slide-0">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele Teams Logo" class="logo-cover">
             <h1>Roadmap Estratégico</h1>
             <p style="font-size: 24px; color: var(--text-gray); font-weight: 500;">Visão de Evolução do Produto: 2026 a 2027</p>
         </div>
 
+        <!-- VISÃO GERAL -->
         <div class="slide" id="slide-1">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
             <h2>🗺️ Visão Geral do Roadmap</h2>
             <div class="roadmap-container">
-                <div class="roadmap-col col-1">
-                    <div class="col-header">1º Sem - 2026</div>
-                    
+
+                <!-- Entregue: Apps -->
+                <div class="roadmap-col col-done">
+                    <div class="col-header">Apps<small>✅ Entregue</small></div>
+
                     <div class="node node-completed">
                         📱 Aplicativos Teams
                         <div class="badge-done"><i class="fa-solid fa-check"></i> 26/03/2026</div>
                     </div>
                     <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
-                    
+
                     <div class="flex-row">
                         <div class="node node-completed node-sm" style="flex: 1;">
                             Versão Gestor
-                            <div class="arrow-down" style="margin-top: 5px;"><i class="fa-solid fa-arrow-down"></i></div>
-                            <span style="font-weight: 400; font-size: 11px; margin-top:5px; display:block;">Aplicativo<br>Completo</span>
+                            <span class="node-note">Aplicativo<br>Completo</span>
+                            <div class="badge-done"><i class="fa-solid fa-check"></i></div>
                         </div>
                         <div class="node node-completed node-sm" style="flex: 1;">
                             Versão Usuário
-                            <div class="arrow-down" style="margin-top: 5px;"><i class="fa-solid fa-arrow-down"></i></div>
-                            <span style="font-weight: 400; font-size: 11px; margin-top:5px; display:block;">Dashboard &<br>Mapa</span>
+                            <span class="node-note">Dashboard &<br>Mapa</span>
+                            <div class="badge-done"><i class="fa-solid fa-check"></i></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="roadmap-col col-2">
-                    <div class="col-header">2º Sem - 2026</div>
-                    
-                    <div class="node node-yellow">💻 Nova Versão Web</div>
+                <!-- Entregue: Web -->
+                <div class="roadmap-col col-done">
+                    <div class="col-header">Nova Web<small>✅ Entregue</small></div>
+
+                    <div class="node node-completed node-sm">
+                        💻 Nova Versão Web
+                        <div class="badge-done"><i class="fa-solid fa-check"></i> Abr/2026</div>
+                    </div>
                     <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
-                    
-                    <div class="node node-yellow">📍 Locais</div>
+
+                    <div class="node node-completed node-sm">
+                        📊 Novos Dashboards + Personalizados
+                        <div class="badge-done"><i class="fa-solid fa-check"></i> Mai/2026</div>
+                    </div>
                     <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
-                    
-                    <div class="node node-yellow">👥 Usuários</div>
+
+                    <div class="node node-completed node-sm">
+                        👥 Usuários
+                        <div class="badge-done"><i class="fa-solid fa-check"></i> Jun/2026</div>
+                    </div>
                     <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
-                    
-                    <div class="node node-yellow">📅 Visitas / Agenda</div>
+
+                    <div class="node node-completed node-sm">
+                        📍 Locais
+                        <div class="badge-done"><i class="fa-solid fa-check"></i> Ago/2026</div>
+                    </div>
                 </div>
 
-                <div class="roadmap-col col-3">
-                    <div class="col-header">1º Sem - 2027</div>
-                    
-                    <div style="flex:1"></div> 
-                    
-                    <div class="node node-blue">⚙️ Planejamento</div>
-                    <div class="flex-row" style="align-items: center; justify-content: center;">
-                        <div class="arrow-down" style="transform: rotate(45deg);"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="arrow-down" style="transform: rotate(-45deg);"><i class="fa-solid fa-arrow-down"></i></div>
-                    </div>
-                    
+                <!-- 4º Tri 2026 -->
+                <div class="roadmap-col col-q4">
+                    <div class="col-header">4º Tri - 2026<small>Próximos</small></div>
+
                     <div class="flex-row">
-                        <div class="node node-blue node-sm" style="flex: 1;">
-                            💵 Reembolso
-                            <div class="arrow-down" style="margin-top: 5px;"><i class="fa-solid fa-arrow-down"></i></div>
-                            <span style="font-weight: 400; font-size: 11px; margin-top:5px; display:block;">🗺️ Mapa</span>
+                        <div class="node node-yellow node-sm" style="flex: 1;">
+                            ✅ Checklists
+                            <div class="badge-date">Nov/2026</div>
                         </div>
-                        <div class="node node-blue node-sm" style="flex: 1; height: fit-content;">📊 Dashboards</div>
+                        <div class="node node-yellow node-sm" style="flex: 1;">
+                            📦 Produtos
+                            <div class="badge-date">Nov/2026</div>
+                        </div>
+                    </div>
+                    <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
+
+                    <div class="node node-yellow">
+                        🧩 OS Modular
+                        <div class="badge-date">Dez/2026</div>
                     </div>
                 </div>
 
-                <div class="roadmap-col col-4">
-                    <div class="col-header">2º Sem - 2027</div>
-                    <div style="flex:1"></div>
-                    
-                    <div class="node node-red">📦 Produtos</div>
+                <!-- 1º Tri 2027 -->
+                <div class="roadmap-col col-q1">
+                    <div class="col-header">1º Tri - 2027<small>Próximos</small></div>
+
+                    <div class="node node-blue">
+                        🗂️ Atividades
+                        <span class="node-note">Desk + CRM</span>
+                        <div class="badge-date">Fev/2027</div>
+                    </div>
                     <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="node node-red">🎧 Desk</div>
+
+                    <div class="node node-blue">
+                        📅 Visitas + Agenda
+                        <div class="badge-date">1º Tri/2027</div>
+                    </div>
+                    <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
+
+                    <div class="node node-blue">
+                        🗺️ Mapa
+                        <div class="badge-date">1º Tri/2027</div>
+                    </div>
+                </div>
+
+                <!-- 2º Tri 2027 -->
+                <div class="roadmap-col col-q2">
+                    <div class="col-header">2º Tri - 2027<small>Próximos</small></div>
+
+                    <div class="node node-red">
+                        ⚙️ Planejamento
+                        <div class="badge-date">2º Tri/2027</div>
+                    </div>
+                    <div class="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
+
+                    <div class="node node-red">
+                        💵 Gastos
+                        <div class="badge-date">2º Tri/2027</div>
+                    </div>
                 </div>
 
                 <div class="bottom-bar-roadmap">
@@ -339,45 +315,38 @@
             </div>
         </div>
 
+        <!-- ENTREGUE: APPS -->
         <div class="slide" id="slide-2">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
-            <h2>📱 1º Semestre - 2026 (Entregue)</h2>
+            <h2>📱 Aplicativos Teams (Entregue)</h2>
             <div class="detail-grid">
-                <div class="detail-card detail-card-updated" style="border-left: 6px solid #10B981; background: #F8FAFC;">
-                    <h3 style="color: #10B981;">Aplicativos Teams <span class="badge-done" style="font-size: 14px;">✅ 26/03</span></h3>
-                    <p>A primeira grande etapa do nosso ano focou na reestruturação e entrega completa da experiência mobile, tanto para quem gere, quanto para quem executa na rua.</p>
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--done-color); background: #F8FAFC;">
+                    <h3 style="color: var(--done-color);">Aplicativos Teams <span class="badge-done" style="font-size: 14px;">✅ 26/03/2026</span></h3>
+                    <p>A primeira grande etapa do ano focou na reestruturação e entrega completa da experiência mobile, tanto para quem gere quanto para quem executa na rua.</p>
                     <ul class="feature-cards-list">
                         <li class="done">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-mobile-screen-button"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
                             <div class="feature-text-wrapper">
                                 <strong>Versão Gestor (App Completo)</strong>
-                                <span>Todo o poder da plataforma Web, agora otimizado na palma da mão do gestor em campo.</span>
+                                <span>Todo o poder da plataforma Web, otimizado na palma da mão do gestor em campo.</span>
                             </div>
                         </li>
                         <li class="done">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-users"></i></div>
                             <div class="feature-text-wrapper">
                                 <strong>Versão Usuário</strong>
                                 <span>Nova interface desenhada para produtividade diária sem travamentos.</span>
                             </div>
                         </li>
                         <li class="done">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-chart-line"></i></div>
                             <div class="feature-text-wrapper">
                                 <strong>Dashboard de Usuário</strong>
                                 <span>Métricas pessoais em tempo real para o colaborador.</span>
                             </div>
                         </li>
                         <li class="done">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-map-location-dot"></i></div>
                             <div class="feature-text-wrapper">
                                 <strong>Mapa do Usuário</strong>
                                 <span>Navegação e roteirização fluida integrada nativamente.</span>
@@ -386,140 +355,168 @@
                     </ul>
                 </div>
                 <div class="detail-visual-col">
-                    <i class="fa-solid fa-mobile-screen-button" style="color: var(--sem1-color);"></i>
+                    <i class="fa-solid fa-mobile-screen-button" style="color: var(--done-color);"></i>
                     <h3>Fundação Mobile Estabelecida</h3>
                 </div>
             </div>
         </div>
 
+        <!-- ENTREGUE: WEB -->
         <div class="slide" id="slide-3">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
-            <h2>💻 2º Semestre - 2026</h2>
+            <h2>💻 Nova Versão Web (Entregue)</h2>
             <div class="detail-grid">
-                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem2-color);">
-                    <h3 style="color: var(--sem2-color);">Nova Versão Web</h3>
-                    <p>Após a revolução no mobile, a missão agora é reconstruir o coração da plataforma no Desktop, entregando velocidade, UX moderna e mais poder de gestão.</p>
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--done-color); background: #F8FAFC;">
+                    <h3 style="color: var(--done-color);">Nova Versão Web <span class="badge-done" style="font-size: 14px;">✅ Abr/2026</span></h3>
+                    <p>Depois do mobile, reconstruímos o coração da plataforma no Desktop, com mais velocidade, UX moderna e mais poder de gestão.</p>
                     <ul class="feature-cards-list">
-                        <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-building"></i>
-                            </div>
+                        <li class="done">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-chart-pie"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Módulo de Locais</strong>
-                                <span>Refatoração da base de clientes físicos com novos filtros dinâmicos.</span>
+                                <strong>Novos Dashboards + Personalizados</strong>
+                                <span>Painéis customizáveis para medir a performance das equipes.</span>
+                                <span class="feature-date">✅ Entregue em Mai/2026</span>
                             </div>
                         </li>
-                        <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
+                        <li class="done">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-users"></i></div>
                             <div class="feature-text-wrapper">
                                 <strong>Gestão de Usuários</strong>
                                 <span>Controle de permissões granular e interface de cadastro otimizada.</span>
+                                <span class="feature-date">✅ Entregue em Jun/2026</span>
                             </div>
                         </li>
-                        <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-regular fa-calendar-check"></i>
-                            </div>
+                        <li class="done">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-building"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Visitas e Agenda</strong>
-                                <span>Novo calendário e visualização em linha do tempo para otimização de equipes.</span>
+                                <strong>Módulo de Locais</strong>
+                                <span>Refatoração da base de clientes físicos com novos filtros dinâmicos.</span>
+                                <span class="feature-date">✅ Entregue em Ago/2026</span>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="detail-visual-col">
-                    <i class="fa-solid fa-laptop-code" style="color: var(--sem2-color);"></i>
+                    <i class="fa-solid fa-laptop-code" style="color: var(--done-color);"></i>
                     <h3>O Renascimento do Desktop</h3>
                 </div>
             </div>
         </div>
 
+        <!-- 4º TRI 2026 -->
         <div class="slide" id="slide-4">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
-            <h2>⚙️ 1º Semestre - 2027</h2>
+            <h2>🧩 4º Trimestre - 2026</h2>
             <div class="detail-grid">
-                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem3-color);">
-                    <h3 style="color: var(--sem3-color);">Planejamento e Inteligência</h3>
-                    <p>Com a nova casa arrumada (Web/App), o ano de 2027 inicia focado em Inteligência de Dados e Prestação de Contas avançada.</p>
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--q4-color);">
+                    <h3 style="color: var(--q4-color);">Execução em Campo</h3>
+                    <p>Fechamos 2026 fortalecendo o que acontece durante o atendimento: o que verificar, o que usar e como registrar o serviço.</p>
                     <ul class="feature-cards-list">
                         <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-route"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-list-check"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Planejamento</strong>
-                                <span>Ferramentas preditivas para otimização de rotas e carga horária.</span>
+                                <strong>Checklists</strong>
+                                <span>Roteiros de verificação preenchidos pelo usuário durante a visita.</span>
+                                <span class="feature-date" style="color: #B45309;">Nov/2026</span>
                             </div>
                         </li>
                         <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-chart-pie"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-boxes-stacked"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Dashboards Analíticos</strong>
-                                <span>Painéis customizáveis para medir performance cruzada de equipes.</span>
+                                <strong>Módulo de Produtos</strong>
+                                <span>Cadastro de itens, estoques e movimentações, na Web e no App.</span>
+                                <span class="feature-date" style="color: #B45309;">Nov/2026</span>
                             </div>
                         </li>
                         <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-receipt"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-puzzle-piece"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Módulo de Reembolso</strong>
-                                <span>Fluxo de aprovação atrelado nativamente ao Mapa e Check-ins.</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                            </div>
-                            <div class="feature-text-wrapper">
-                                <strong>Visão Tática no Mapa</strong>
-                                <span>Novos clusters e dados financeiros sobrepostos.</span>
+                                <strong>OS Modular</strong>
+                                <span>Ordem de serviço montada a partir dos módulos que cada operação precisa.</span>
+                                <span class="feature-date" style="color: #B45309;">Dez/2026</span>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="detail-visual-col">
-                    <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--sem3-color);"></i>
-                    <h3>Inteligência Operacional</h3>
+                    <i class="fa-solid fa-screwdriver-wrench" style="color: var(--q4-color);"></i>
+                    <h3>Serviço Completo em Campo</h3>
                 </div>
             </div>
         </div>
 
+        <!-- 1º TRI 2027 -->
         <div class="slide" id="slide-5">
             <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
-            <h2>📦 2º Semestre - 2027</h2>
+            <h2>🗂️ 1º Trimestre - 2027</h2>
             <div class="detail-grid">
-                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--sem4-color);">
-                    <h3 style="color: var(--sem4-color);">Produtos e Atendimento (Desk)</h3>
-                    <p>O fechamento de 2027 visa fechar a cadeia de valor da prestação de serviços, englobando controle de insumos e comunicação direta com o cliente final.</p>
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--q1-color);">
+                    <h3 style="color: var(--q1-color);">Relacionamento e Rotina</h3>
+                    <p>2027 começa conectando a demanda do cliente à agenda da equipe e à visão do território.</p>
                     <ul class="feature-cards-list">
                         <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-boxes-stacked"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-table-columns"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Módulo de Produtos</strong>
-                                <span>Gestão de estoque móvel (porta-malas) e orçamentos via app.</span>
+                                <strong>Atividades (Desk + CRM)</strong>
+                                <span>Gestão de tarefas em Kanban com CRM leve. Incorpora o antigo Desk.</span>
+                                <span class="feature-date" style="color: #1D4ED8;">Fev/2027</span>
                             </div>
                         </li>
                         <li>
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-headset"></i>
-                            </div>
+                            <div class="feature-icon-wrapper"><i class="fa-regular fa-calendar-check"></i></div>
                             <div class="feature-text-wrapper">
-                                <strong>Desk (Service Desk)</strong>
-                                <span>Portal de chamados integrado. Cliente abre ticket que vai para o técnico.</span>
+                                <strong>Visitas + Agenda</strong>
+                                <span>Novo calendário e visualização em linha do tempo para otimização de equipes.</span>
+                                <span class="feature-date" style="color: #1D4ED8;">1º Tri/2027</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <div class="feature-text-wrapper">
+                                <strong>Mapa</strong>
+                                <span>Nova visão do território com equipes, locais e visitas.</span>
+                                <span class="feature-date" style="color: #1D4ED8;">1º Tri/2027</span>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="detail-visual-col">
-                    <i class="fa-solid fa-truck-fast" style="color: var(--sem4-color);"></i>
-                    <h3>Cadeia de Valor Completa</h3>
+                    <i class="fa-solid fa-people-arrows" style="color: var(--q1-color);"></i>
+                    <h3>Do Chamado à Agenda</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2º TRI 2027 -->
+        <div class="slide" id="slide-6">
+            <img src="https://i.ibb.co/Y7nSVRPw/oie-transparent.png" alt="Contele" class="logo-mini">
+            <h2>⚙️ 2º Trimestre - 2027</h2>
+            <div class="detail-grid">
+                <div class="detail-card detail-card-updated" style="border-left: 6px solid var(--q2-color);">
+                    <h3 style="color: var(--q2-color);">Planejamento e Gastos</h3>
+                    <p>Com a base completa, o foco passa a ser planejar melhor a operação e controlar o custo de estar em campo.</p>
+                    <ul class="feature-cards-list">
+                        <li>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-route"></i></div>
+                            <div class="feature-text-wrapper">
+                                <strong>Planejamento</strong>
+                                <span>Ferramentas para otimização de rotas e carga horária das equipes.</span>
+                                <span class="feature-date" style="color: #B91C1C;">2º Tri/2027</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-receipt"></i></div>
+                            <div class="feature-text-wrapper">
+                                <strong>Gastos</strong>
+                                <span>Registro e aprovação das despesas de campo, atrelados às visitas e check-ins.</span>
+                                <span class="feature-date" style="color: #B91C1C;">2º Tri/2027</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="detail-visual-col">
+                    <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--q2-color);"></i>
+                    <h3>Inteligência Operacional</h3>
                 </div>
             </div>
         </div>
@@ -536,19 +533,21 @@
         <ul class="index-list">
             <li class="index-item active-nav" onclick="goToSlide(0)"><i class="fa-solid fa-house"></i> Capa Inicial</li>
             <li class="index-item" onclick="goToSlide(1)"><i class="fa-solid fa-map"></i> Fluxo Completo</li>
-            
-            <div class="index-group">Linha do Tempo</div>
-            <li class="index-item sub-item" onclick="goToSlide(2)"><i class="fa-solid fa-check" style="color:#10B981"></i> 1º Sem 2026 (Apps)</li>
-            <li class="index-item sub-item" onclick="goToSlide(3)"><i class="fa-solid fa-laptop-code" style="color:#F59E0B"></i> 2º Sem 2026 (Web)</li>
-            <li class="index-item sub-item" onclick="goToSlide(4)"><i class="fa-solid fa-chart-pie" style="color:#3B82F6"></i> 1º Sem 2027 (Plan.)</li>
-            <li class="index-item sub-item" onclick="goToSlide(5)"><i class="fa-solid fa-boxes-stacked" style="color:#EF4444"></i> 2º Sem 2027 (Prod.)</li>
+
+            <div class="index-group">Entregues</div>
+            <li class="index-item sub-item" onclick="goToSlide(2)"><i class="fa-solid fa-check" style="color:#10B981"></i> Apps Teams</li>
+            <li class="index-item sub-item" onclick="goToSlide(3)"><i class="fa-solid fa-check" style="color:#10B981"></i> Nova Versão Web</li>
+
+            <div class="index-group">Próximos</div>
+            <li class="index-item sub-item" onclick="goToSlide(4)"><i class="fa-solid fa-puzzle-piece" style="color:#F59E0B"></i> 4º Tri 2026</li>
+            <li class="index-item sub-item" onclick="goToSlide(5)"><i class="fa-solid fa-table-columns" style="color:#3B82F6"></i> 1º Tri 2027</li>
+            <li class="index-item sub-item" onclick="goToSlide(6)"><i class="fa-solid fa-route" style="color:#EF4444"></i> 2º Tri 2027</li>
         </ul>
     </div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const totalSlides = slides.length;
@@ -556,16 +555,14 @@
         function updateUI() {
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === totalSlides - 1;
-            
+
             slides.forEach((slide, index) => {
-                if (index === currentSlide) { slide.classList.add('active'); }
-                else { slide.classList.remove('active'); }
+                slide.classList.toggle('active', index === currentSlide);
             });
 
             const allListItems = document.querySelectorAll('.index-item');
-            allListItems.forEach((li) => { li.classList.remove('active-nav'); });
-            
-            if(allListItems[currentSlide]) {
+            allListItems.forEach((li) => li.classList.remove('active-nav'));
+            if (allListItems[currentSlide]) {
                 allListItems[currentSlide].classList.add('active-nav');
                 allListItems[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
